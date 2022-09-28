@@ -47,10 +47,9 @@ public void Display(string query, DataGridView dgv)
 }
 ```
 
-### Пример кода
-
-![AuthButton](https://user-images.githubusercontent.com/98191494/190898404-0c50e0dc-f615-4608-a991-265fa67d62c7.PNG)
+## Пример кода
 ### Авторизация логин пароль
+![AuthButton](https://user-images.githubusercontent.com/98191494/190898404-0c50e0dc-f615-4608-a991-265fa67d62c7.PNG)
 ```C#
 if (textBoxLogin.Text.Length > 0)
 {
@@ -67,4 +66,19 @@ if (textBoxLogin.Text.Length > 0)
 }
 ```
 
+
+### Регистрация
 ![RegButton](https://user-images.githubusercontent.com/98191494/190898546-cfe0a1ea-6398-4518-8381-6b9e2e73d471.PNG)
+
+```C#
+try
+{
+  string query = $"INSERT INTO Accounts VALUES ('{textBoxRegLogin.Text}', '{textBoxRegPass.Text}')";
+  dataBase.Query(query);
+  MessageBox.Show($"{textBoxRegLogin.Text} зарегистрирован");
+}
+catch (Exception ex)
+{
+    MessageBox.Show(ex.Message);
+}
+```
