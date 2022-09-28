@@ -47,5 +47,24 @@ public void Display(string query, DataGridView dgv)
 }
 ```
 
+### Пример кода
+
 ![AuthButton](https://user-images.githubusercontent.com/98191494/190898404-0c50e0dc-f615-4608-a991-265fa67d62c7.PNG)
+### Авторизация логин пароль
+```C#
+if (textBoxLogin.Text.Length > 0)
+            {
+                if (textBoxPassword.Text.Length > 0)
+                {
+                    string query = $"SELECT Login, Password FROM Accounts WHERE Login = '{textBoxLogin.Text}' AND Password = '{textBoxPassword.Text}'";
+                    DataTable dt = dataBase.Query(query);
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        MessageBox.Show("Вход выполнен");
+                    }
+                }
+            }
+```
+
 ![RegButton](https://user-images.githubusercontent.com/98191494/190898546-cfe0a1ea-6398-4518-8381-6b9e2e73d471.PNG)
