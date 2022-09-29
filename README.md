@@ -9,6 +9,36 @@ System.Data.SqlClient Author Microsoft
 ### 2. Сделать класс для работы с БД
 ```C#
 public class DB
+{
+  SqlConnection sqlConnection = new SqlConnection(@"Data Source=Test\SQLEXPRESS;Initial Catalog=NameDataBase;Integrated Security=True");
+  
+  public SqlConnection GetConnection()
+  {
+    return sqlConnection;
+  }
+  
+  public DataTable Query(string sqlQuery)
+  {
+    SqlDataAdapter adapter = new SqlDataAdapter();
+    DataTable table = new DataTable();
+    SqlCommand command = new SqlCommand(sqlQuery, GetConnection());
+    adapter.SelectCommand = command;
+    adapter.Fill(table);
+    return table;
+  }
+  
+  public void Display(string query, DataGridView dgv)
+  {
+    string sql = query;
+    SqlConnection connection = GetConnection();
+    SqlCommand command = new SqlCommand(sql, connection);
+    SqlDataAdapter adapter = new SqlDataAdapter(command);
+    DataTable dt = new DataTable();
+    adapter.Fill(dt);
+    dgv.DataSource = dt;
+    connection.Close();
+  }
+}
 ```
 
 ### 3. Строка подключения
@@ -29,7 +59,7 @@ public SqlConnection GetConnection()
 public DataTable Query(string sqlQuery)
 {
   SqlDataAdapter adapter = new SqlDataAdapter();
-  ataTable table = new DataTable();
+  DataTable table = new DataTable();
   SqlCommand command = new SqlCommand(sqlQuery, GetConnection());
   adapter.SelectCommand = command;
   adapter.Fill(table);
