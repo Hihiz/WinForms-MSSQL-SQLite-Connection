@@ -10,7 +10,7 @@ System.Data.SqlClient Author Microsoft
 ```C#
 public class DB
 {
-  SqlConnection sqlConnection = new SqlConnection(@"Data Source=Test\SQLEXPRESS;Initial Catalog=NameDataBase;Integrated Security=True");
+  public SqlConnection sqlConnection = new SqlConnection(@"Data Source=Test\SQLEXPRESS;Initial Catalog=NameDataBase;Integrated Security=True");
   
   public SqlConnection GetConnection()
   {
