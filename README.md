@@ -6,12 +6,17 @@ System.Data.SqlClient Author Microsoft
 ```
 ![NuGet System Data SqlClient](https://user-images.githubusercontent.com/98191494/190898120-92db2611-72c9-4d4d-92bb-f1baccc7cc98.PNG)
 
-### 2. Строка подключения
+### 2. Сделать класс для работы с БД
+```C#
+public class DB
+```
+
+### 3. Строка подключения
 ```C#
 SqlConnection sqlConnection = new SqlConnection(@"Data Source=Test\SQLEXPRESS;Initial Catalog=NameDataBase;Integrated Security=True");
 ```
 
-### 3. Вернуть строку подключения
+### 4. Вернуть строку подключения
 ```C#
 public SqlConnection GetConnection()
 {
@@ -19,7 +24,7 @@ public SqlConnection GetConnection()
 }
 ```
 
-### 4. Функция для выполнения запроса
+### 5. Функция для выполнения запроса
 ```C#
 public DataTable Query(string sqlQuery)
 {
@@ -32,7 +37,7 @@ public DataTable Query(string sqlQuery)
 }
 ```
 
-### 5. Функция для вывода таблицы на Grid
+### 6. Функция для вывода таблицы на Grid
 ```C#
 public void Display(string query, DataGridView dgv)
 {
