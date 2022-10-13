@@ -117,3 +117,33 @@ catch (Exception ex)
     MessageBox.Show(ex.Message);
 }
 ```
+
+## Подключение SQLite
+### Подключить пакет NuGet
+```
+System.Data.SQLite
+```
+
+```
+  public class DataBase
+    {
+        SQLiteConnection connection = new SQLiteConnection("Data Source=AuthUser.db;Version=3;");
+
+        SQLiteConnection GetConnection()
+        {
+            return connection;
+        }
+
+        public void Display(string query, DataGridView dgv)
+        {
+            string sql = query;
+            SQLiteConnection connection = GetConnection();
+            SQLiteCommand command = new SQLiteCommand(sql, connection);
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            dgv.DataSource = dt;
+            connection.Close();
+        }
+    }
+```
