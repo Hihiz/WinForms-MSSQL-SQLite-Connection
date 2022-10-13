@@ -1,4 +1,4 @@
-# MSSQL-Connection
+# MSSQL - SQLite Connection
 ## WinForms WPF
 ### 1. Подключить NuGet MSSQL
 ```
@@ -6,7 +6,7 @@ System.Data.SqlClient Author Microsoft
 ```
 ![NuGet System Data SqlClient](https://user-images.githubusercontent.com/98191494/190898120-92db2611-72c9-4d4d-92bb-f1baccc7cc98.PNG)
 
-### 2. Сделать класс для работы с БД
+### 2. Сделать класс для работы с БД MSSQL
 ```C#
 public class DB
 {
@@ -118,13 +118,15 @@ catch (Exception ex)
 }
 ```
 
+
 ## Подключение SQLite
 ### Подключить пакет NuGet
-```
+``` C#
 System.Data.SQLite
 ```
 
-```
+### Класс для работы с БД SQLite
+```C#
   public class DataBase
     {
         SQLiteConnection connection = new SQLiteConnection("Data Source=AuthUser.db;Version=3;");
