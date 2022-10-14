@@ -10,7 +10,7 @@ System.Data.SqlClient Author Microsoft
 ```C#
 public class DB
 {
-  public SqlConnection sqlConnection = new SqlConnection(@"Data Source=Test\SQLEXPRESS;Initial Catalog=NameDataBase;Integrated Security=True");
+public SqlConnection sqlConnection = new SqlConnection(@"Data Source=Test\SQLEXPRESS;Initial Catalog=NameDataBase;Integrated Security=True");
   
   public SqlConnection GetConnection()
   {
@@ -128,27 +128,37 @@ System.Data.SQLite
 
 ### 2. Сделать класс для работы с БД SQLite
 ```C#
-  public class DB
-    {
-        SQLiteConnection connection = new SQLiteConnection("Data Source=AuthUser.db;");
+public class DB
+{
+  SQLiteConnection connection = new SQLiteConnection("Data Source=AuthUser.db;");
 
-        SQLiteConnection GetConnection()
-        {
-            return connection;
-        }
+  SQLiteConnection GetConnection()
+  {
+    return connection;
+  }
 
-        public void Display(string query, DataGridView dgv)
-        {
-            string sql = query;
-            SQLiteConnection connection = GetConnection();
-            SQLiteCommand command = new SQLiteCommand(sql, connection);
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            dgv.DataSource = dt;
-            connection.Close();
-        }
-    }
+public DataTable Query(string sqlQuery)
+{
+  SQLiteDataAdapter adapter = new SQLiteDataAdapter();
+  DataTable dt = new DataTable();
+  SQLiteCommand command = new SQLiteCommand(sqlQuery, GetConnection());
+  adapter.SelectCommand = command;
+  adapter.Fill(dt);
+  return dt;
+}
+
+public void Display(string query, DataGridView dgv)
+{
+  string sql = query;
+  SQLiteConnection connection = GetConnection();
+  SQLiteCommand command = new SQLiteCommand(sql, connection);
+  SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
+  DataTable dt = new DataTable();
+  adapter.Fill(dt);
+  dgv.DataSource = dt;
+  connection.Close();
+  }
+}
 ```
 
 ### 3. Строка подключения
