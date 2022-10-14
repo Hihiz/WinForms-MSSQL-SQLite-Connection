@@ -120,16 +120,17 @@ catch (Exception ex)
 
 
 ## Подключение SQLite
-### Подключить пакет NuGet
-``` C#
+### 1.Подключить NuGet SQLite
+```
 System.Data.SQLite
 ```
+![NuGet System Data SQLite](https://user-images.githubusercontent.com/98191494/195941990-567c41cf-c1cb-4d6a-8767-be879587714d.PNG)
 
-### Класс для работы с БД SQLite
+### 2. Сделать класс для работы с БД SQLite
 ```C#
-  public class DataBase
+  public class DB
     {
-        SQLiteConnection connection = new SQLiteConnection("Data Source=AuthUser.db;Version=3;");
+        SQLiteConnection connection = new SQLiteConnection("Data Source=AuthUser.db;");
 
         SQLiteConnection GetConnection()
         {
@@ -148,4 +149,45 @@ System.Data.SQLite
             connection.Close();
         }
     }
+```
+
+### 3. Строка подключения
+```C#
+SQLiteConnection connection = new SQLiteConnection("Data Source=AuthUser.db;");
+```
+
+### 4. Вернуть строку подключения
+```C#
+SQLiteConnection GetConnection()
+{
+  return connection;
+}
+```
+
+### 5. Функция для выполнения запроса
+```C#
+ public DataTable Query(string sqlQuery)
+{
+  SQLiteDataAdapter adapter = new SQLiteDataAdapter();
+  DataTable dt = new DataTable();
+  SQLiteCommand command = new SQLiteCommand(sqlQuery, GetConnection());
+  adapter.SelectCommand = command;
+  adapter.Fill(dt);
+  return dt;
+}
+```
+
+### 6. Функция для вывода таблицы на Grid
+```C#
+public void Display(string query, DataGridView dgv)
+{
+  string sql = query;
+  SQLiteConnection connection = GetConnection();
+  SQLiteCommand command = new SQLiteCommand(sql, connection);
+  SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
+  DataTable dt = new DataTable();
+  adapter.Fill(dt);
+  dgv.DataSource = dt;
+  connection.Close();
+}
 ```
