@@ -1,4 +1,4 @@
-# MSSQL - SQLite Connection
+# WinFroms MSSQL - SQLite Connection
 ## WinForms
 ### 1. Подключить NuGet MSSQL
 ```
