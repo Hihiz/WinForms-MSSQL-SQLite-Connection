@@ -1,5 +1,5 @@
 # MSSQL - SQLite Connection
-## WinForms WPF
+## WinForms
 ### 1. Подключить NuGet MSSQL
 ```
 System.Data.SqlClient Author Microsoft
