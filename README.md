@@ -283,7 +283,7 @@ User user = new User
 {
   Login = textBoxLogin.Text,
   Password = textBoxPassword.Text,
-  PasswordCopy = textBox2.Text
+  PasswordCopy = textBoxPassword.Text
 };
 
 db.Users.Add(user);
