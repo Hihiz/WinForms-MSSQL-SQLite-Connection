@@ -1,5 +1,6 @@
 # WinForms MSSQL - SQLite Connection
-## WinForms
+## WinForms ADO .NET &  EF CORE6
+## ADO .NET
 ### 1. Подключить NuGet MSSQL
 ```
 System.Data.SqlClient Author Microsoft
@@ -201,3 +202,109 @@ public void Display(string query, DataGridView dgv)
   connection.Close();
 }
 ```
+
+# EF CORE6
+### 1. Подключить NuGet MSSQL или SQLite
+```
+Microsoft.EntityFrameworkCore.SqlServer
+```
+![ef1](https://user-images.githubusercontent.com/98191494/195999536-0dea49bc-c8fe-4a93-b3c9-0dcb9401e508.PNG)
+
+
+```
+Microsoft.EntityFrameworkCore.Sqlite
+```
+![ef2](https://user-images.githubusercontent.com/98191494/195999550-b46235f3-8629-4243-aa4c-1bc381fe4271.PNG)
+
+
+## При подходе DataBase First - Scaffold, нужно подключить пакет
+```
+Microsoft.EntityFrameworkCore.Tools
+```
+Microsoft.EntityFrameworkCore.Tools - необходим для создания классов по базе данных, то есть reverse engineering
+
+### 2. Создание классов по базе данных
+SQLite
+```
+Scaffold-DbContext "DataSource=название бд.db;" Microsoft.EntityFrameworkCore.Sqlite
+```
+
+MSSQL
+```
+Scaffold-DbContext "Data Source=название сервера;Initial Catalog=название БД;" Microsoft.EntityFrameworkCore.SqlServer
+```
+
+## При подходе Code First
+### 1. Создать класс модели
+```C#
+public class User
+{
+  public long Id { get; set; }
+  public string Login { get; set; }
+  public string Password { get; set; }
+  public string PasswordCopy { get; set; }
+}
+```
+
+### 2. Создать класс контекста данных
+```C#
+public class ApplicationContext : DbContext
+{
+  public DbSet<Users> users { get; set; }
+
+  protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+  {
+      // SQLite
+      optionsBuilder.UseSqlite("Data Source=название бд.db");
+      
+      // MSSQL
+      //optionBuilder.UseSqlServer("Data Source=название сервера;Initial Catalog=название бд;");
+  }
+}
+```
+
+### 3. Вывод данных из таблицы
+```C#
+private void Form1_Load(object sender, EventArgs e)
+{
+  using (AuthUserContext db = new AuthUserContext())
+  {
+    var users = db.Users.ToList();
+    dataGridView1.DataSource = users;
+  }
+}
+```
+
+### 4. Добавление данных
+```C#
+AuthUserContext db = new AuthUserContext();
+
+User user = new User
+{
+  Login = textBoxLogin.Text,
+  Password = textBoxPassword.Text,
+  PasswordCopy = textBox2.Text
+};
+
+db.Users.Add(user);
+db.SaveChanges();
+
+MessageBox.Show($"Пользователь: {textBoxLogin.Text} добавлен");
+```
+
+### 5. Сравнение данных
+```C#
+using (AuthUserContext db = new AuthUserContext())
+{
+  if (db.Users.FirstOrDefault(user => user.Login == textBoxLogin.Text && user.Password == textBoxPassword.Text) != null)
+  {
+    MessageBox.Show("Вход выполнен", "Успешно");
+  }
+  else
+  {
+    MessageBox.Show("Неверный логин или пароль", "Ошибка");
+  }
+}
+```
+
+
