@@ -217,13 +217,13 @@ Microsoft.EntityFrameworkCore.Sqlite
 ![ef2](https://user-images.githubusercontent.com/98191494/195999550-b46235f3-8629-4243-aa4c-1bc381fe4271.PNG)
 
 
-## При подходе DataBase First - Scaffold, нужно подключить пакет
+## 2. При подходе DataBase First - Scaffold, нужно подключить пакет
 ```
 Microsoft.EntityFrameworkCore.Tools
 ```
 Microsoft.EntityFrameworkCore.Tools - необходим для создания классов по базе данных, то есть reverse engineering
 
-### 2. Создание классов по базе данных
+### 3. Создание классов по базе данных
 SQLite
 ```
 Scaffold-DbContext "DataSource=название бд.db;" Microsoft.EntityFrameworkCore.Sqlite
