@@ -250,6 +250,12 @@ public class User
 ```C#
 public class ApplicationContext : DbContext
 {
+  public ApplicationContext()
+  {
+    // Database.EnsureDeleted();
+   Database.EnsureCreated();
+  }
+
   public DbSet<Users> users { get; set; }
 
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -258,7 +264,7 @@ public class ApplicationContext : DbContext
       optionsBuilder.UseSqlite("Data Source=название бд.db");
       
       // MSSQL
-      //optionBuilder.UseSqlServer("Data Source=название сервера;Initial Catalog=название бд;");
+      //optionsBuilder.UseSqlServer("Data Source=название сервера;Initial Catalog=название бд;Trusted_Connection=True;");
   }
 }
 ```
