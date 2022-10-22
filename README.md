@@ -7,7 +7,7 @@ System.Data.SqlClient Author Microsoft
 ```
 ![NuGet System Data SqlClient](https://user-images.githubusercontent.com/98191494/190898120-92db2611-72c9-4d4d-92bb-f1baccc7cc98.PNG)
 
-### 2. Сделать класс для работы с БД MSSQL
+### 2. (Вариант 1) Сделать класс для работы с БД MSSQL
 ```C#
 public class DB
 {
@@ -38,6 +38,31 @@ public SqlConnection sqlConnection = new SqlConnection(@"Data Source=Test\SQLEXP
     adapter.Fill(dt);
     dgv.DataSource = dt;
     connection.Close();
+  }
+}
+```
+
+### 2. (Вариант 2) Без класса для работы с БД MSSQL
+```C#
+private void Form1_Load(object sender, EventArgs e)
+{
+  // Строка подключения
+  string connectionString = "Data Source=название сервера;Initial Catalog=название бд;Trusted_Connection=True;";
+
+  // Запрос
+  string sqlQuery = "SELECT * FROM Users";
+
+  using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+  {
+    sqlConnection.Open();
+    string cmd = sqlQuery;
+    SqlCommand command = new SqlCommand(cmd, sqlConnection);
+    SqlDataAdapter adapter = new SqlDataAdapter(command);
+    DataTable dt = new DataTable();
+    adapter.Fill(dt);
+    // Вывод на грид
+    dataGridViewUser.DataSource = dt;
+    sqlConnection.Close();
   }
 }
 ```
@@ -127,7 +152,7 @@ System.Data.SQLite
 ```
 ![NuGet System Data SQLite](https://user-images.githubusercontent.com/98191494/195941990-567c41cf-c1cb-4d6a-8767-be879587714d.PNG)
 
-### 2. Сделать класс для работы с БД SQLite
+### 2. (Вариант 1) Сделать класс для работы с БД SQLite
 ```C#
 public class DB
 {
@@ -158,6 +183,31 @@ public void Display(string query, DataGridView dgv)
   adapter.Fill(dt);
   dgv.DataSource = dt;
   connection.Close();
+  }
+}
+```
+
+### 2. (Вариант 2) Без класса для работы с БД SQLite
+```C#
+private void Form1_Load(object sender, EventArgs e)
+{
+  // Строка подключения
+  string connectionString = "Data Source=название бд.db;";
+
+  // Запрос
+  string sqlQuery = "SELECT * FROM Users";
+
+  using (SQLiteConnection sqlConnection = new SQLiteConnection(connectionString))
+  {
+    sqlConnection.Open();
+    string cmd = sqlQuery;
+    SQLiteCommand command = new SQLiteCommand(cmd, sqlConnection);
+    SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
+    DataTable dt = new DataTable();
+    adapter.Fill(dt);
+    // Вывод на грид
+    dataGridViewUser.DataSource = dt;
+    sqlConnection.Close();
   }
 }
 ```
