@@ -11,7 +11,7 @@ System.Data.SqlClient Author Microsoft
 ```C#
 public class DB
 {
-public SqlConnection sqlConnection = new SqlConnection(@"Data Source=Test\SQLEXPRESS;Initial Catalog=NameDataBase;Integrated Security=True");
+public SqlConnection sqlConnection = new SqlConnection(@"Data Source=Test\SQLEXPRESS;Initial Catalog=NameDataBase;Trusted_Connection=True;");
   
   public SqlConnection GetConnection()
   {
@@ -69,7 +69,7 @@ private void Form1_Load(object sender, EventArgs e)
 
 ### 3. Строка подключения
 ```C#
-SqlConnection sqlConnection = new SqlConnection(@"Data Source=Test\SQLEXPRESS;Initial Catalog=NameDataBase;Integrated Security=True");
+SqlConnection sqlConnection = new SqlConnection(@"Data Source=Test\SQLEXPRESS;Initial Catalog=NameDataBase;Trusted_Connection=True;");
 ```
 
 ### 4. Вернуть строку подключения
@@ -362,5 +362,3 @@ using (AuthUserContext db = new AuthUserContext())
   }
 }
 ```
-
-
