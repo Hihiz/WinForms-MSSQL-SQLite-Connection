@@ -362,3 +362,44 @@ using (AuthUserContext db = new AuthUserContext())
   }
 }
 ```
+
+## Миграции
+### 1.Если база данных существует Database First
+Делаем первую миграцию БЕЗ каких либо изменений
+
+
+Add-Migration "Initial"
+
+
+Комментируем метод Up
+
+
+Update-Database
+
+Вторую миграцию делаем С изменениями, пример добавляем новое поле в классе
+
+
+Add-Migration "AddAgeProduct"
+
+
+Update-database
+
+
+Последующие изменения делаются 
+
+
+Add-Migration "DeleteAgeProduct"
+
+
+Update-database
+
+### 2.Если базы данных нет Code First
+В контексте не пишем Database.EnsureCreated();
+
+
+Add-Migration "Initial"
+
+* Метод Up НЕ трогаем
+
+Update-Database
+* После Update-Database база данных создается
