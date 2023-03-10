@@ -271,6 +271,8 @@ Microsoft.EntityFrameworkCore.Sqlite
 ```
 Microsoft.EntityFrameworkCore.Tools
 ```
+![image](https://user-images.githubusercontent.com/98191494/224352461-d403a71d-aee8-4f55-b011-c00192e609ed.png)
+
 Microsoft.EntityFrameworkCore.Tools - необходим для создания классов по базе данных, то есть reverse engineering
 
 ## Добавить в проект ```App.config``` 
